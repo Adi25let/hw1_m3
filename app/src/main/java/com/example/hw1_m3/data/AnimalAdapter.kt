@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.hw1_m3.databinding.ItemAnimalBinding
 
-class AnimalAdapter(private val animalList: ArrayList<AnimalModel>
+class AnimalAdapter(private val animalList: ArrayList<AnimalModel>,
+    private val onItemClick: (position: Int) -> Unit
 ): RecyclerView.Adapter<AnimalAdapter.ViewHolder>() {
   inner  class ViewHolder(private  val binding: ItemAnimalBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(animalModel: AnimalModel) {
@@ -33,6 +34,10 @@ class AnimalAdapter(private val animalList: ArrayList<AnimalModel>
         position: Int
     ) {
         holder.bind(animalList[position])
+
+        holder.itemView.setOnClickListener {
+            onItemClick(position)
+        }
     }
 
     override fun getItemCount(): Int {

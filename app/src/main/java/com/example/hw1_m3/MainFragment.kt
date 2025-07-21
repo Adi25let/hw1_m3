@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.hw1_m3.data.AnimalAdapter
 import com.example.hw1_m3.data.AnimalModel
 import com.example.hw1_m3.databinding.FragmentMainBinding
@@ -26,7 +27,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initData()
-        initAdapte()
+        initAdapter()
     }
         private  fun initData(){
         animalList.add(AnimalModel(title = "Tiger", image = "https://png.pngtree.com/png-clipart/20230507/ourmid/pngtree-tiger-walking-wildlife-scene-transparent-background-png-image_7088126.png"
@@ -41,8 +42,20 @@ class MainFragment : Fragment() {
         }
 
 
-    private fun initAdapte() {
-        val adapter = AnimalAdapter(animalList)
+    private fun initAdapter() {
+        val adapter = AnimalAdapter(animalList){ position ->
+            val bundle = Bundle()
+            bundle.putSerializable("animal" , animalList[position])
+
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailFragment(
+                "Hello World"
+            ))
+//            val detailFragment = DetailFragment()
+//            detailFragment.arguments = bundle
+//            requireActivity().supportFragmentManager.beginTransaction()
+//                .add(R.id.fragment_container, detailFragment)
+//                .addToBackStack(null).commit()
+        }
         binding.rvAnimal.adapter = adapter;
     }
 }

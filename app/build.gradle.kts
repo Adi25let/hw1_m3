@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -50,4 +51,9 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.glide)
+
+    //Navigation
+    val navVersion = "2.9.2"
+    implementation("androidx.navigation:navigation-fragment:${navVersion}")
+    implementation("androidx.navigation:navigation-ui:${navVersion}")
 }
